@@ -1,0 +1,22 @@
+Ricky Duka - HC1
+
+1. Because it is the part of the computer that runs programs and without it the computer cannot run software.
+2. Key words.
+3. It reads each line in a high-level program, translates it into machine language, and immediately executes it one line at a time.
+4.
+	a. 01001110
+	b. 00101101
+	c. 00011100
+	d. 01110011
+	e. 11101011
+5.
+	a. 79
+	b. 178
+	c. 19
+	d. 210
+6.
+R - 82
+i - 105
+c - 99
+k - 107
+y - 121
