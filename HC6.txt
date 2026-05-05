@@ -1,0 +1,78 @@
+Constant String WORD1 = "Mouse"
+Constant String WORD2 = "Dog"
+Constant String WORD3 = "Cat"
+Constant String WORD4 = "Bunny"
+Constant String WORD5 = "Squirrel"
+Constant String WORD6 = "Racoon"
+Constant String EXIT_STRING = "Q"
+
+Constant Real WIN_RATE_ONE = 2.1
+Constant Integer WIN_RATE_TWO = 3
+
+Module Main()
+  Declare Real betAmt = 0.0
+  Declare Real totalBets = 0.0
+  Declare Real totalWinnings = 0.0
+  Declare Integer matchingNumbers = 1
+
+  Declare String option = ""
+  Declare String word1 = ""
+  Declare String word2 = ""
+  Declare String word3 = ""
+
+  Do
+    Display "Do you want to stop the game or play again? Type Q to quit. "
+    Input option
+
+    Call GetSlotAmount(betAmt)
+    Set word1 = GetRandomWord()
+    Set word2 = GetRandomWord()
+    Set word3 = GetRandomWord()
+
+    If word1 == word2 Then
+      Set matchingNumbers = matchingNumbers + 1
+    End If
+
+    If word2 == word3 Then
+      Set matchingNumbers = matchingNumbers + 1
+    End If
+
+    If word1 == word3 Then
+      Set matchingNumbers = matchingNumbers + 1
+    End If
+
+    Set totalWinnings = totalWinnings + GetWinnings(betAmt, matchingNumbers)
+  Until toLower(option) == "Q"
+
+
+  Display "Total Money Player Bet: $", totalBets
+  Display "Total Money Player Won: ", totalWinnings
+End Module()
+
+Module GetBetAmt( Real Ref betAmt )
+  Display "Enter the amount of money you would like to insert into the slot machine: "
+  Input betAmt
+End Module
+
+Function String GetRandomWord()
+  Declare String randomWord = ""
+  Declare Integer randomNum = random(1, 6)
+
+  If randomNum == 1 Then
+    Set randomWord = WORD1
+  Else If randomNum == 2 Then
+    Set randomWord = WORD2
+  Else If randomNum == 3 Then
+    Set randomWord = WORD3
+  Else If randomNum == 4 Then
+    Set randomWord = WORD4
+  Else If randomNum == 5 Then
+    Set randomWord = WORD5
+  End If
+
+  Return randomWord
+End Function
+
+Function Real GetWinnings( Real betAmt, Integer matches )
+  Return winnings
+End Function

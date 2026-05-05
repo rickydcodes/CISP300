@@ -1,0 +1,68 @@
+Module Main()
+  Declare String serviceType = ""
+  Declare Integer callTime = 0
+  Declare Integer minsOnSoftware = 0
+  Declare Integer minsOnHardware = 0
+  Declare Integer minsOnApplication = 0
+  Declare Integer minsOnNetwork = 0
+  Declare Integer minsOnLogin = 0
+  Declare Integer totalMins = 0
+
+  Do
+    Call GetServiceTypeAndTime(serviceType, callTime)
+    If serviceType == "SOFTWARE" Then
+      Set minsOnSoftware = minsOnSoftware + callTime
+    Else
+      If serviceType == "HARDWARE" Then
+        Set minsOnHardware = minsOnHardware + callTime
+      Else
+        If serviceType == "APPLICATION" Then
+          Set minsOnApplication = minsOnApplication + callTime
+        Else
+          If serviceType == "NETWORK" Then
+            Set minsOnNetwork = minsOnNetwork + callTime
+          Else
+            If serviceType == "LOGIN"
+              Set minsOnLogin = minsOnLogin + callTime
+            End If
+          End If
+        End If
+      End If
+    End If
+  Until serviceType == "OFFLINE"
+
+  Call TotalAllCallMinutes(minsOnSoftware, minsOnHardware, minsOnApplication, minsOnNetwork, minsOnLogin, totalMins)
+  Call DisplayServiceCallTotals(minsOnSoftware, minsOnHardware, minsOnApplication, minsOnNetwork, minsOnLogin, totalMins)
+End Module
+
+Module GetServiceTypeAndTime( String Ref serviceType, Integer Ref callTime )
+  Display "SERVICE CALL MENU"
+  Display "—-------------------------------------------"
+  Display "SOFTWARE...: Software Issues"
+  Display "HARDWARE...: Hardware Related Questions"
+  Display "APPLICATION: Application Issues"
+  Display "NETWORK....: Network Related Questions"
+  Display "LOGIN......: Login Problems"
+  Display "OFFLINE....: Phone Operator Has Gone Offline"
+  Display "--------------------------------------------"
+  Display "Enter Service Type Keyword: "
+  Input serviceType
+  Display "Enter the call time in minutes: "
+  Input callTime
+End Module
+
+Module TotalAllCallMinutes( Integer minsOnSoftware, Integer minsOnHardware, Integer minsOnApplication, Integer minsOnNetwork, Integer minsOnLogin, Integer Ref totalMins )
+  Set totalMins = minsOnSoftware + minsOnHardware + minsOnApplication + minsOnNetwork + minsOnLogin
+End Module
+
+Module DisplayServiceCallTotals( Integer minsOnSoftware, Integer minsOnHardware, Integer minsOnApplication, Integer minsOnNetwork, Integer minsOnLogin, Integer totalMins )
+  Display "Service Type               Minutes"
+  Display "----------------------------------"
+  Display "SOFTWARE                   ", minsOnSoftware
+  Display "HARDWARE                   ", minsOnHardware
+  Display "APPLICATION                ", minsOnApplication
+  Display "NETWORK                    ", minsOnNetwork
+  Display "LOGIN                      ", minsOnLogin
+  Display "----------------------------------"
+  Display "Total Minutes On Calls     ", totalMins
+End Module

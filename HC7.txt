@@ -1,0 +1,65 @@
+Constant Integer MIN_VIOLATION1 = 4
+Constant Integer MIN_VIOLATION2 = 10
+Constant Integer MIN_VIOLATION3 = 20
+Constant Integer FINE_MULTIPLIER1 = 10
+Constant Integer FINE_MULTIPLIER2 = 15
+Constant Integer FINE_MULTIPLIER3 = 25
+Constant Integer FINE_MULTIPLIER4 = 40
+
+Module Main()
+  Declare Real speedLimit = 0.0
+  Declare Real speed = 0.0
+
+  Set speedLimit = GetSpeedLimit()
+  Set speed = GetDriverSpeed()
+
+  If speed > speedLimit Then
+    Call DisplayFine(speedLimit, speed)
+  End If
+End Module
+
+Module DisplayFine( Real speedLimit, Real speed )
+  Declare Integer speedViolation = toInteger(speedLimit - speed)
+  Declare Real fine = 0.0
+  
+  If speedViolation <= MIN_VIOLATION1 Then
+    Set fine = speedViolation * FINE_MULTIPLIER1
+  Else If speedViolation <= MIN_VIOLATION2
+    Set fine = speedViolation * FINE_MULTIPLIER2
+  Else If speedViolation <= MIN_VIOLATION3
+    Set fine = speedViolation * FINE_MULTIPLIER3
+  Else
+    Set fine = speedViolation * FINE_MULTIPLIER4
+  End If
+
+  Display "You were travelling ", speedViolation, "miles over the speed limit and your fine is $", fine
+End Module
+
+Function Real GetSpeedLimit()
+  Declare Real speedLimit = 0.0
+
+  Display "What is the speed limit?"
+  Input speedLimit
+
+  While NOT isReal(speedLimit) OR speedLimit < 20 OR speedLimit > 70
+    Display "You must enter a speed limit greater than 20mph and less than 70mph as a decimal."
+    Display "What is the speed limit?"
+    Input speedLimit
+  End While
+
+  Return speedLimit
+End Function
+
+Function Real GetDriverSpeed()
+  Real speed = 0.0
+  
+  Display "How fast were you driving?"
+  Input speed
+  While NOT isReal(speed) Do
+    Display "Please enter a decimal for the speed."
+    Display "How fast were you driving?"
+    Input speed
+  End While
+
+  Return speed
+End Function
