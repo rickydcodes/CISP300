@@ -1,0 +1,14 @@
+Constant Integer GROUNDS = 9
+Constant Integer WATER = 8
+
+Declare Integer cupsCoffee = 0
+
+Display "How many cups of coffee would you like to make?"
+Input cupsCoffee
+
+Declare Integer gramsGrounds = GROUNDS * cupsCoffee
+Declare Integer ouncesWater = WATER * cupsCoffee
+
+Display "Cups of coffee requested: ", cupsCoffee
+Display "Grams of ground coffee needed: ", gramsGrounds
+Display "Ounces of water needed: ", ouncesWater
