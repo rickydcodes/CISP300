@@ -1,0 +1,66 @@
+Constant Integer CALM_MAX_MPH = 7
+Constant Integer BREEZY_MAX_MPH = 12
+Constant Integer WINDY_MAX_MPH = 21
+Constant Integer GUSTY_MAX_MPH = 35
+
+Declare String fireRisk = ""
+Declare String windCondition = ""
+Declare Real temperature = 0.0
+Declare Integer windSpeed = 0
+
+Module Main()
+  Call GetWindSpeedAndTemperature(windSpeed, temperature)
+  Call GetWindCondition(windSpeed, windCondition)
+  Call GetFireRisk(windCondition, temperature, fireRisk)
+
+  Display "Wind speed reported was ", windSpeed, " MPH and is considered ", windCondition, "."
+  Display "Temperature was reported as ", temperature, " degrees"
+  Display "The Fire Risk is considered: ", fireRisk
+End Module
+
+Module GetWindSpeedAndTemperature( Integer Ref windSpeed, Real Ref temperature )
+  Display "Enter the current wind speed in MPH: "
+  Input windSpeed
+
+  Display "Enter the current temperature in degrees: "
+  Input temperature
+End Module
+
+Module GetWindCondition( Integer windSpeed, String Ref windCondition )
+  If windSpeed <= CALM_MAX_MPH Then
+    Set windCondition = "Calm"
+  Else
+    If windSpeed <= BREEZY_MAX_MPH Then
+      Set windCondition = "Breezy"
+    Else
+      If windSpeed <= WINDY_MAX_MPH Then
+        Set windCondition = "Windy"
+      Else
+        If windSpeed <= GUSTY_MAX_MPH Then
+          Set windCondition = "Gusty"
+        End If
+    End If
+  End If
+End Module
+
+Module GetFireRisk( String windCondition, Real temperature, String Ref fireRisk )
+  If temperature >= 105 Then
+    Set fireRisk = "Extremely High"
+  Else
+    If temperature >= 80 AND windCondition == "Gusty" Then
+      Set fireRisk = "Very High"
+    Else
+      If temperature >= 75 AND temperature <= 90 AND windCondition == "Windy" Then
+        Set fireRisk = "High"
+      Else
+        If temperature >= 85 AND temperature <= 98 AND windCondition == "Breezy" Then
+          Set fireRisk = "Med"
+        Else
+          If temperature >= 75 AND temperature <= 85 AND windCondition == "Calm" Then
+            Set fireRisk = "Low"
+          End If
+        End If
+      End If
+    End If
+  End If
+End Module

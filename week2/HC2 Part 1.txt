@@ -1,0 +1,17 @@
+Constant Integer HUMAN_FEET = 2
+Constant Integer CAT_PAWS = 4
+
+Declare Integer totalShoes = 0
+Declare Integer totalPaws = 0
+
+Display "How many shoes were counted in the pile?"
+Input totalShoes
+
+Display "How many paws were counted in the room?"
+Input totalPaws
+
+Declare integer people = shoes / HUMAN_FEET
+Declare integer cats = paws / CAT_PAWS
+
+Display "The number of people in the room were: ", people
+Display "The number of cats in the room were: ", cats

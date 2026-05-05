@@ -1,0 +1,36 @@
+Constant Integer CHICKEN_FEED_PER_MEAL = 1
+Constant Integer MEALS_PER_DAY = 2
+Constant Integer EGGS_LAID_WEEKLY = 8
+Constant Real FEED_PRICE_PER_POUND = 2.97
+
+Module Main()
+  Declare Integer chickens = 0
+  Declare Integer totalWeeklyChickenFeed = 0
+  Declare Integer eggsProduced = 0
+  Declare Real totalCost = 0.0
+
+  Display "How many chickens would you like to buy?"
+  Input chickens
+
+  Call CalculateChickenFeed(chickens, CHICKEN_FEED_PER_MEAL, MEALS_PER_DAY, totalWeeklyChickenFeed)
+  Call CalculateEggsProduced(chickens, EGGS_LAID_WEEKLY, eggsProduced)
+  
+  Set totalCost = totalWeeklyChickenFeed * FEED_PRICE_PER_POUND
+
+  DisplayResults(chickens, totalWeeklyChickenFeed, eggsProduced, totalCost)
+End Module
+
+Module CalculateChickenFeed( Integer chickens, Integer feedPerMeal, Integer mealsPerDay, Integer Ref totalChickenFeedWeekly )
+  Set totalChickenFeedWeekly = chickens * feedPerMeal * 16 * mealsPerDay * 7
+End Module
+
+Module CalculateEggsProduced( Integer chickens, Integer eggsPerChicken, Integer Ref eggsProduced )
+  Set eggsProduced = chickens * eggsPerChicken
+End Module
+
+Module DisplayResults()
+  Display "Number of chickens to buy: ", chickens
+  Display "Chicken feed needed in pounds per week: ", chickenFeedNeeded
+  Display "Cost of chicken feed for a week: $", weeklyCost
+  Display "Average eggs that will be produced per week: ", eggsProduced
+End Module
