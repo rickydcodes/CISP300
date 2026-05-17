@@ -1,0 +1,85 @@
+Constant Integer ARRAY_SIZE = 15
+
+Module Main()
+  Declare String produce[ARRAY_SIZE] = "Broccoli", "Carrots", "Lettuce", "Tomato", "Bell Pepper", "Corn", "Fresno Pepper", "Beets", "Green Beans", "Radish"
+  Declare Real price[ARRAY_SIZE] = 3.99, 0.25, 2.99, 1.21, 1.09, 0.50, 0.24, 1.99, 1.78, 1.37
+  Declare Integer quantity[ARRAY_SIZE]
+  Declare String itemName = ""
+  Declare Integer itemIndex = 0
+  Declare Integer quantity = 0
+  
+  Display "Enter an item name or 'None': "
+  Input itemName
+  
+  While itemName != "None"
+    Set itemIndex = FindVegetableIndex(produce, ARRAY_SIZE, itemName)
+    
+    If itemIndex != -1 Then
+      Display "Enter a quantity of the item: "
+      Input quantity
+      
+      Call DisplayProduceLabel(itemName, quantity)
+      Call UpdateItemQuantity(quantity, itemIndex, quantity)
+    Else
+      Display "The item was not found. Try again."
+    End If
+    
+    Display "Enter an item name or 'None': "
+    Input itemName
+  End While
+  
+  Call DisplayReceipt(produce, price, quantity, ARRAY_SIZE)
+  Set quantity = []
+End Module
+
+Module UpdateItemQuantity( Integer[] Ref quantityArray, Integer itemIndex, Integer quantity )
+  Set quantityArray[itemIndex] = quantityArray[itemIndex] + quantity
+End Module
+
+Module DisplayProduceLabel( String itemName, Integer quantity )
+  Display "Produce.: ", itemName
+  Display "Quantity: ", quantity
+  Display "------------------"
+End Module
+
+Module DisplayReceipt( String[] produce, Real[] price, Integer[] quantity, Integer arraySize )
+  Declare Integer index = 0
+  Declare Integer totalQuantity = 0
+  Declare Real totalPrice = 0.0
+  
+  Display "Produce", Tab, "Qty", Tab, "Price", Tab, "Total"
+  Display "------------------------------------"
+  
+  While index < arraySize
+    If quantity[index] != 0 Then
+      Set totalQuantity = totalQuantity + quantity[index]
+	  Set totalPrice = totalPrice + (quantity[index] * price[index])
+	  
+	  Display produce[index], Tab, quantity[index], Tab, price[index], Tab, quantity[index] * price[index]
+    End If
+    
+    Set index = index + 1
+  End While
+  
+  Display "------------------------------------"
+  Display "Totals", Tab, totalQuantity, Tab, totalPrice
+End Module
+
+Function Integer FindVegetableIndex( String[] produce, Integer produceArrSize, String itemName )
+  Declare Integer index = 0
+  Declare Boolean found = False
+  
+  While index < produceArrSize AND found == False
+    If produce[index] == itemName Then
+  	  Set found = True
+  	Else
+  	  Set index = index + 1
+  	End If
+  End While
+  
+  If NOT found Then
+    Set index = -1
+  End If
+  
+  Return index
+End Function
