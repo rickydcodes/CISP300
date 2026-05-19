@@ -1,0 +1,46 @@
+Constant Integer ARRAY_SIZE = 10
+
+Module Main()
+  Declare String plateArray[ARRAY_SIZE]
+
+  Call InputLicensePlates(plateArray, ARRAY_SIZE)
+  Call InsertionSort(plateArray, ARRAY_SIZE)
+  Call DisplayLicensePlates(plateArray, ARRAY_SIZE)
+End Module
+
+Module InputLicensePlates( String Ref array[], Integer arraySize )
+  Declare Integer index
+
+  For index = 0 To arraySize - 1
+    Display "Please enter license plate ", (index + 1), " of ", arraySize, ":"
+    Input array[index]
+  End For
+End Module
+
+Module InsertionSort( String Ref array[], Integer arraySize )
+  Declare Integer index
+  Declare Integer scan
+  Declare String unsortedValue
+
+  For index = 1 To arraySize - 1
+    Set unsortedValue = array[index]
+    Set scan = index
+
+    While scan > 0 AND array[scan - 1] > unsortedValue
+      Set array[scan] = array[scan - 1]
+      Set scan = scan - 1
+    End While
+
+    Set array[scan] = unsortedValue
+  End For
+End Module
+
+Module DisplayLicensePlates( String array[], Integer arraySize )
+  Declare Integer index
+
+  Display "License Plates"
+
+  For index = 0 To arraySize - 1
+    Display (index + 1), ") ", array[index]
+  End For
+End Module
