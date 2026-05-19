@@ -1,0 +1,53 @@
+Constant String monthNames[12] = "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+
+Module Main()
+  Declare InputFile houseFile
+  Declare Integer month = 0
+  Declare Integer day = 0
+  Declare Integer year = 0
+  Declare Real price = 0.0
+
+  Declare Real lowestPrice = 999999999.99
+  Declare Integer lowestMonth = 0
+  Declare Integer lowestDay = 0
+  Declare Integer lowestYear = 0
+
+  Declare Real highestPrice = 0.0
+  Declare Integer highestMonth = 0
+  Declare Integer highestDay = 0
+  Declare Integer highestYear = 0
+
+  Declare Integer totalHouses = 0
+
+  Display "Local House Prices"
+  Display "-------------------------------------------------------"
+
+  Open houseFile "HousePrice.Dat"
+  Read houseFile month, day, year, price
+
+  While NOT eof(houseFile)
+    Set totalHouses = totalHouses + 1
+
+    If price < lowestPrice Then
+      Set lowestPrice = price
+      Set lowestMonth = month
+      Set lowestDay = day
+      Set lowestYear = year
+    End If
+
+    If price > highestPrice Then
+      Set highestPrice = price
+      Set highestMonth = month
+      Set highestDay = day
+      Set highestYear = year
+    End If
+
+    Read houseFile month, day, year, price
+  End While
+
+  Close houseFile
+
+  Display "Lowest House Price: ", monthNames[lowMonth - 1], " ", lowDay, ", ", lowYear, " was ", currencyFormat(lowPrice)
+  Display "Highest House Price: ", monthNames[highMonth - 1], " ", highDay, ", ", highYear, " was ", currencyFormat(highPrice)
+  Display "Total Houses Reviewed: ", totalHouses
+End Module
