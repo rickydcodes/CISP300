@@ -1,0 +1,87 @@
+Constant Integer ARRAY_SIZE = 20
+Constant String monthNames[12] = "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+
+Module Main()
+  Constant String produce[ARRAY_SIZE] = "Broccoli", "Carrots", "Lettuce", "Tomato", "Bell Pepper", "Corn", "Jalapeno", "Beets", "Green Beans", "Radish", "", "", "", "", "", "", "", "", "", ""
+  Constant Integer produceID[ARRAY_SIZE] = 3471, 2112, 2581, 7896, 4228, 5397, 0188, 3473, 9982, 224, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+  Declare Integer quantity[ARRAY_SIZE]
+
+  Declare InputFile salesFile
+  Declare Integer itemID = 0
+  Declare Integer monthNum = 0
+  Declare Integer dayOrdered = 0
+  Declare Integer orderQuantity = 0
+
+  Declare Integer itemIndex = 0
+  Declare Integer prevItemIndex = -1
+  Declare Integer prevMonth = 0
+  Declare Integer monthTotal = 0
+  Declare Integer itemTotal = 0
+
+  Declare Integer highestQty = 0
+  Declare Integer lowestQty = 0
+  Declare Integer mostSoldIndex = 0
+  Declare Integer leastSoldIndex = 0
+
+  Display "Produce Sales Report"
+  Display "===================="
+
+  Open salesFile "MonthlySales.Dat"
+  Read salesFile itemID, monthNum, dayOrdered, orderQuantity
+
+  While NOT eof(salesFile)
+    Set itemIndex = FindItemIndex(produceID, ARRAY_SIZE, itemID)
+
+    If itemIndex != -1 Then
+      If prevItemIndex == -1 Then
+        Display produce[itemIndex]
+        Set prevItemIndex = itemIndex
+        Set prevMonth = monthNum
+      Else If itemIndex != prevItemIndex Then
+        Display "    ", monthNames[prevMonth - 1], Tab, monthTotal
+        Display "-------------------"
+        Display "Total Quantity: ", itemTotal
+        Display ""
+        Display produce[itemIndex]
+        Set monthTotal = 0
+        Set itemTotal = 0
+        Set prevItemIndex = itemIndex
+        Set prevMonth = monthNum
+      Else If monthNum != prevMonth Then
+        Display "    ", monthNames[prevMonth - 1], Tab, monthTotal
+        Set monthTotal = 0
+        Set prevMonth = monthNum
+      End If
+    End If
+
+    Read salesFile itemID, monthNum, dayOrdered, orderQuantity
+  End While
+
+  Close salesFile
+
+  Display "    ", monthNames[prevMonth - 1], Tab, monthTotal
+  Display "-------------------"
+  Display "Total Quantity: ", itemTotal
+  Display "===================="
+  Display "Most Sold.: ", produce[mostSoldIndex]
+  Display "Least Sold: ", produce[leastSoldIndex]
+End Module
+
+Function Integer FindProduceIDIndex( Integer[] produceIDArr, Integer produceIDArrSize, Integer itemID )
+  Declare Integer index = 0
+  Declare Boolean found = False
+
+  While index < produceIDArrSize AND NOT found
+    If produceIDArr[index] == itemID Then
+      Set found = True
+    Else
+      Set index = index + 1
+    End If
+  End While
+
+  If found == False Then
+    Set index = -1
+  End If
+
+  Return index
+End Function
