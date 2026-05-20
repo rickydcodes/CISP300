@@ -1,0 +1,27 @@
+Constant Integer NUM_NAMES = 5
+Constant String CORRECT_LETTER = "A"
+Constant Integer CORRECT_POSITION = 2
+Constant String[NUM_NAMES] NAMES = "Jim", "Joe", "Ken", "Tim", "Tam"
+
+Module Main()
+  Declare Integer incorrectNames = 0
+  Declare Integer counter = 0
+  Declare String[NUM_NAMES] incorrectNames = "", "", "", "", ""
+  
+  While counter < NUM_NAMES - 1
+    If toUpperCase(NAMES[index][CORRECT_POSITION]) != CORRECT_LETTER Then
+      Set incorrectNames = incorrectNames + 1
+      Set incorrectNames[index] = NAMES[index]
+    End If
+
+    Set counter = counter + 1
+  End While
+
+  For index = 0, NUM_NAMES - 1
+    If incorrectNames[index] != "" Then
+      Display "Letter not found in: ", incorrectNames[index]
+    End If
+  End For
+
+  Display "Number of names counted: ", NUM_NAMES - incorrectNames
+End Module

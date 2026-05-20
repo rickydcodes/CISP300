@@ -1,0 +1,20 @@
+Module Main()
+  Constant Integer ROWS = 5
+  Constant String[ROWS] friendsArray = "Tom", "Bob", "867",
+                                       ")", "856", "1111",
+                                       "3412", "413", "3544",
+                                       "-", "(", "916",
+                                       "019", "Ron", "919",
+  Declare String answer = ""
+
+  Set answer = BuildAnswer(friendsArray)
+  Display answer
+End Module
+
+Function String BuildAnswer( String[] friendsArray )
+  Declare String name = friendsArray[4][1]
+  Declare String areaCode = friendsArray[3][1], friendsArray[2][1], friendsArray[1][0]
+  Declare String phoneAnswer = name, " ", areaCode, " ", friendsArray[0][2], "-", friendsArray[2][2]
+
+  Return phoneAnswer
+End Function

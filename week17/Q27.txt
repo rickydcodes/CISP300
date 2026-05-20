@@ -1,0 +1,35 @@
+Constant Integer NUM_EXCLUDED_MAKES = 2
+Constant Integer EXCLUSION_YEAR = 2015
+Constant String FILE_NAME = "cars.txt"
+Constant String[NUM_EXCLUDED_MAKES] EXCLUDED_MAKES = "Tesla", "BMW"
+
+Module Main()
+  Declare InputFile carsFile
+  Declare String make = ""
+  Declare String model = ""
+  Declare Integer year = 0
+  Declare Integer totalCars = 0
+  Declare Integer excludedCars = 0
+
+  Open carsFile FILE_NAME
+  
+  While NOT EOF(FILENAME)
+    Read carsFile make, model, year
+    Set totalCars = totalCars + 1
+    
+    For index = 0, NUM_EXCLUDED_MAKES - 1
+      If make == EXCLUDED_MAKES[index] Then
+        Set excludedCars = excludedCars + 1
+      End If
+    End For
+
+    Display "Car Make: ", make
+    Display "Car Model: ", model
+    Display "Year: ", year
+  End While
+
+  Close carsFile
+  
+  Display "Total Number Of Cars: ", totalCars
+  Display "Cars made in ", EXCLUSION_YEAR, " that are not in this list - Tesla, BMW: ", excludedCars
+End Module
